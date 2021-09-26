@@ -11,7 +11,7 @@ The project uses:
 
 Testing application (write with Flask):
 
-git: https://github.com/KKashpovski/pythonProject_Testing_REST_API_Store
+git: https://github.com/yavv951/api_tests_store
 
 url: https://stores-tests-api.herokuapp.com
 
