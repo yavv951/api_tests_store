@@ -1,8 +1,4 @@
-import pytest
-
-from fixtures.constants import ResponseText
-from fixtures.register.model import RegisterUser, RegisterUserResponse
-from fixtures.auth.model import AuthUser
+# import pytest
 from fixtures.userinfo.model import UserInfo, UserInfoResponse
 
 
@@ -17,9 +13,10 @@ class TestUserInfo:
             4. Check response
         """
         data = UserInfo.random()
-        res = app.userinfo.add_user_info(user_id=auth_user.uuid, data=data, type_response=UserInfoResponse,
-                                         header=auth_user.header)
+        res = app.userinfo.add_user_info(
+            user_id=auth_user.uuid,
+            data=data,
+            type_response=UserInfoResponse,
+            header=auth_user.header,
+        )
         assert res.status_code == 200
-
-
-

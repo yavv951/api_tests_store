@@ -1,10 +1,10 @@
-import pytest
-
-from fixtures.constants import ResponseText
-from fixtures.register.model import RegisterUser, RegisterUserResponse
-from fixtures.auth.model import AuthUser
-from fixtures.userinfo.model import UserInfo, DeleteUserInfoResponse, UserInfoResponse, \
-    GetUserInfoResponse
+# import pytest
+from fixtures.userinfo.model import (
+    UserInfo,
+    DeleteUserInfoResponse,
+    UserInfoResponse,
+    GetUserInfoResponse,
+)
 
 
 class TestGetUserInfo:
@@ -20,10 +20,17 @@ class TestGetUserInfo:
             6. Check response
         """
         data = UserInfo.random()
-        app.userinfo.add_user_info(user_id=auth_user.uuid, data=data, type_response=UserInfoResponse,
-                                   header=auth_user.header)
-        res = app.userinfo.get_user_info(user_id=auth_user.uuid, type_response=GetUserInfoResponse,
-                                         header=auth_user.header)
+        app.userinfo.add_user_info(
+            user_id=auth_user.uuid,
+            data=data,
+            type_response=UserInfoResponse,
+            header=auth_user.header,
+        )
+        res = app.userinfo.get_user_info(
+            user_id=auth_user.uuid,
+            type_response=GetUserInfoResponse,
+            header=auth_user.header,
+        )
         assert res.status_code == 200
 
     def test_get_deleted_userinfo(self, app, auth_user):
@@ -38,15 +45,20 @@ class TestGetUserInfo:
             6. Check response
         """
         data = UserInfo.random()
-        app.userinfo.add_user_info(user_id=auth_user.uuid, data=data, type_response=UserInfoResponse,
-                                   header=auth_user.header)
-        app.userinfo.delete_user_info(user_id=auth_user.uuid, type_response=DeleteUserInfoResponse,
-                                      header=auth_user.header)
-        res = app.userinfo.get_user_info(user_id=auth_user.uuid, type_response=GetUserInfoResponse,
-                                         header=auth_user.header)
+        app.userinfo.add_user_info(
+            user_id=auth_user.uuid,
+            data=data,
+            type_response=UserInfoResponse,
+            header=auth_user.header,
+        )
+        app.userinfo.delete_user_info(
+            user_id=auth_user.uuid,
+            type_response=DeleteUserInfoResponse,
+            header=auth_user.header,
+        )
+        res = app.userinfo.get_user_info(
+            user_id=auth_user.uuid,
+            type_response=GetUserInfoResponse,
+            header=auth_user.header,
+        )
         assert res.status_code == 404
-
-
-
-
-
