@@ -3,8 +3,9 @@ import logging
 import pytest
 
 from fixtures.app import StoreApp
-from fixtures.auth.model import AuthUserResponse, AuthUserType
+from fixtures.auth.model import AuthUserResponse, UserType
 from fixtures.register.model import RegisterUser, RegisterUserResponse
+from fixtures.userinfo.model import UserInfo, UserInfoResponse
 
 logger = logging.getLogger("api")
 
@@ -33,5 +34,16 @@ def auth_user(app):
     token = res_auth.data.access_token
     header = {"Authorization": f"JWT {token}"}
     user_uuid = res_register.data.uuid
-    return AuthUserType(header, user_uuid)
+    return UserType(header, user_uuid)
 
+
+@pytest.fixture
+def user_info(app, auth_user):
+    data = UserInfo.random()
+    app.userinfo.add_user_info(
+        user_id=auth_user.uuid,
+        data=data,
+        type_response=UserInfoResponse,
+        header=auth_user.header,
+    )
+    return UserType(header=auth_user.header, uuid=auth_user.uuid, user_data=data)

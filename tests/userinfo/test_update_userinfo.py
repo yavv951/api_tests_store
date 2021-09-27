@@ -1,14 +1,9 @@
-# import pytest
-from fixtures.userinfo.model import (
-    UserInfo,
-    UpdateUserInfo,
-    UpdateUserInfoResponse,
-    UserInfoResponse,
-)
+import pytest
+from fixtures.userinfo.model import UpdateUserInfo, UpdateUserInfoResponse
 
 
 class TestUpdateUserInfo:
-    def test_update_userinfo(self, app, auth_user):
+    def test_update_userinfo(self, app, user_info):
         """
         Steps.
 
@@ -18,18 +13,109 @@ class TestUpdateUserInfo:
             4. Check that status code is 200
             5. Check response
         """
-        data = UserInfo.random()
-        app.userinfo.add_user_info(
-            user_id=auth_user.uuid,
-            data=data,
-            type_response=UserInfoResponse,
-            header=auth_user.header,
-        )
         data = UpdateUserInfo.random()
         res = app.userinfo.change_user_data(
-            user_id=auth_user.uuid,
+            user_id=user_info.uuid,
             data=data,
             type_response=UpdateUserInfoResponse,
-            header=auth_user.header,
+            header=user_info.header,
         )
         assert res.status_code == 200
+
+    @pytest.mark.parametrize("uuid", ["ffddass", "@/&", -55, True])
+    def test_update_invalid_id_userinfo(self, app, user_info, uuid):
+        """
+        Steps.
+
+            1. Try to login user with valid data
+            2. Add user info
+            3. Change user data
+            4. Check that status code is 200
+            5. Check response
+        """
+        data = UpdateUserInfo.random()
+
+        res = app.userinfo.change_user_data(
+            user_id=uuid,
+            data=data,
+            type_response=None,
+            header=user_info.header,
+        )
+        assert res.status_code == 404
+
+    def test_none_exist_id_userinfo(self, app, user_info, uuid=1000):
+        """
+        Steps.
+
+            1. Try to login user with valid data
+            2. Add user info
+            3. Change user data
+            4. Check that status code is 200
+            5. Check response
+        """
+        data = UpdateUserInfo.random()
+
+        res = app.userinfo.change_user_data(
+            user_id=uuid,
+            data=data,
+            type_response=None,
+            header=user_info.header,
+        )
+        assert res.status_code == 404
+
+    @pytest.mark.xfail("Ожидается 400 ошибка")
+    def test_invalid_phone_userinfo(self, app, user_info, phone="1" * 10000):
+        """
+        Steps.
+
+            1. Try to login user with valid data
+            2. Add user info
+            3. Change user data
+            4. Check that status code is 200
+            5. Check response
+        """
+        data = UpdateUserInfo.random()
+        setattr(data, "phone", phone)
+        res = app.userinfo.change_user_data(
+            user_id=user_info.uuid,
+            data=data,
+            type_response=None,
+            header=user_info.header,
+        )
+        assert res.status_code == 400
+
+    def test_update_userinfo_wo_header(self, app, user_info):
+        """
+        Steps.
+
+            1. Try to login user with valid data
+            2. Add user info
+            3. Change user data
+            4. Check that status code is 200
+            5. Check response
+        """
+        data = UpdateUserInfo.random()
+        res = app.userinfo.change_user_data(
+            user_id=user_info.uuid,
+            data=data,
+            type_response=None,
+            header=None,
+        )
+        assert res.status_code == 401
+
+    def test_update_userinfo_invalid_header(self, app, user_info):
+        """
+        Steps.
+
+            1. Try to login user with valid data
+            2. Add user info
+            3. Change user data
+            4. Check that status code is 200
+            5. Check response
+        """
+        data = UpdateUserInfo.random()
+        header = {"Authorization": "JWT 895241"}
+        res = app.userinfo.change_user_data(
+            user_id=user_info.uuid, data=data, type_response=None, header=header
+        )
+        assert res.status_code == 401
