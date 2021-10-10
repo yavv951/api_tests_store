@@ -1,7 +1,5 @@
 import logging
-
 import pytest
-
 from fixtures.app import StoreApp
 from fixtures.auth.model import AuthUserResponse, UserType
 from fixtures.register.model import RegisterUser, RegisterUserResponse

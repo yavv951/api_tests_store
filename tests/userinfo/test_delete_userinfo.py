@@ -1,9 +1,8 @@
-import pytest
 from fixtures.userinfo.model import UserInfo, DeleteUserInfoResponse, UserInfoResponse
 
 
 class TestDeleteUserInfo:
-    def test_update_userinfo(self, app, auth_user):
+    def test_delete_userinfo(self, app, auth_user):
         """
         Steps.
 
@@ -14,11 +13,15 @@ class TestDeleteUserInfo:
             5. Check response
         """
         data = UserInfo.random()
-        app.userinfo.add_user_info(user_id=auth_user.uuid, data=data, type_response=UserInfoResponse,
-                                   header=auth_user.header)
-        res = app.userinfo.delete_user_info(user_id=auth_user.uuid, type_response=DeleteUserInfoResponse,
-                                            header=auth_user.header)
+        app.userinfo.add_user_info(
+            user_id=auth_user.uuid,
+            data=data,
+            type_response=UserInfoResponse,
+            header=auth_user.header,
+        )
+        res = app.userinfo.delete_user_info(
+            user_id=auth_user.uuid,
+            type_response=DeleteUserInfoResponse,
+            header=auth_user.header,
+        )
         assert res.status_code == 200
-
-
-

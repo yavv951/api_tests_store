@@ -8,10 +8,9 @@ class TestUpdateUserInfo:
         Steps.
 
             1. Try to login user with valid data
-            2. Add user info
-            3. Change user data
-            4. Check that status code is 200
-            5. Check response
+            2. Change user data
+            3. Check that status code is 200
+            4. Check response
         """
         data = UpdateUserInfo.random()
         res = app.userinfo.change_user_data(
@@ -28,13 +27,11 @@ class TestUpdateUserInfo:
         Steps.
 
             1. Try to login user with valid data
-            2. Add user info
-            3. Change user data
-            4. Check that status code is 200
-            5. Check response
+            2. Change user info with invalid uuid
+            3. Check that status code is 404
+            4. Check response
         """
         data = UpdateUserInfo.random()
-
         res = app.userinfo.change_user_data(
             user_id=uuid,
             data=data,
@@ -48,10 +45,9 @@ class TestUpdateUserInfo:
         Steps.
 
             1. Try to login user with valid data
-            2. Add user info
-            3. Change user data
-            4. Check that status code is 200
-            5. Check response
+            2. Change user data with invalid uuid
+            3. Check that status code is 404
+            4. Check response
         """
         data = UpdateUserInfo.random()
 
@@ -69,10 +65,9 @@ class TestUpdateUserInfo:
         Steps.
 
             1. Try to login user with valid data
-            2. Add user info
-            3. Change user data
-            4. Check that status code is 200
-            5. Check response
+            2. Change user data invalid phone
+            3. Check that status code is 400
+            4. Check response
         """
         data = UpdateUserInfo.random()
         setattr(data, "phone", phone)
@@ -89,10 +84,9 @@ class TestUpdateUserInfo:
         Steps.
 
             1. Try to login user with valid data
-            2. Add user info
-            3. Change user data
-            4. Check that status code is 200
-            5. Check response
+            2. Change user data with None token
+            3. Check that status code is 200
+            4. Check response
         """
         data = UpdateUserInfo.random()
         res = app.userinfo.change_user_data(
@@ -108,10 +102,9 @@ class TestUpdateUserInfo:
         Steps.
 
             1. Try to login user with valid data
-            2. Add user info
-            3. Change user data
-            4. Check that status code is 200
-            5. Check response
+            2. Change user data with invalid token
+            3. Check that status code is 200
+            4. Check response
         """
         data = UpdateUserInfo.random()
         header = {"Authorization": "JWT 895241"}
