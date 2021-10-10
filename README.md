@@ -13,7 +13,7 @@ Testing application (write with Flask):
 
 git: https://github.com/yavv951/api_tests_store
 
-url: https://stores-tests-api.herokuapp.com
+url: https://app.swaggerhub.com/apis-docs/berpress/flask-rest-api/1.0.0#/
 
 
 ###How to start
