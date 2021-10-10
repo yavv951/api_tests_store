@@ -1,4 +1,5 @@
-# Python Project REST API Store Testing 
+[![tests](https://github.com/yavv951/api_tests_store/actions/workflows/tests.yml/badge.svg)](https://github.com/yavv951/api_tests_store/actions/workflows/tests.yml)
+# Python Project REST API Store Testing
 
 This is a tutorial project that shows how to implement api tests in Python
 
@@ -48,4 +49,3 @@ pre-commit install
 ```python
 pytest
 ```
-
