@@ -1,4 +1,4 @@
-# Python api tests
+# Python Project REST API Store Testing 
 
 This is a tutorial project that shows how to implement api tests in Python
 
@@ -48,4 +48,4 @@ pre-commit install
 ```python
 pytest
 ```
-# pythonProject_REST_API_Store_Testing" 
+
