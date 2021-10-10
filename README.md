@@ -16,7 +16,7 @@ git: https://github.com/yavv951/api_tests_store
 url: https://app.swaggerhub.com/apis-docs/berpress/flask-rest-api/1.0.0#/
 
 
-# How to start
+### How to start
 
 Use python 3.8 +
 Create and activate virtual environments
@@ -43,7 +43,7 @@ and add pre-commit
 pre-commit install
 ```
 
-# Run all tests
+### Run all tests
 
 ```python
 pytest
