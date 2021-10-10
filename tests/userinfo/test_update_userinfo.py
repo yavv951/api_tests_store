@@ -59,7 +59,7 @@ class TestUpdateUserInfo:
         )
         assert res.status_code == 404
 
-    @pytest.mark.xfail("Ожидается 400 ошибка")
+    @pytest.mark.xfail(reason="Ожидается 400 ошибка")
     def test_invalid_phone_userinfo(self, app, user_info, phone="1" * 10000):
         """
         Steps.
