@@ -1,8 +1,12 @@
 import logging
 import pytest
+
+# from common_models import UserStore
 from fixtures.app import StoreApp
 from fixtures.auth.model import AuthUserResponse, UserType
 from fixtures.register.model import RegisterUser, RegisterUserResponse
+
+# from fixtures.store.model import Store, StoreResponse
 from fixtures.userinfo.model import UserInfo, UserInfoResponse
 
 logger = logging.getLogger("api")
@@ -45,3 +49,15 @@ def user_info(app, auth_user):
         header=auth_user.header,
     )
     return UserType(header=auth_user.header, uuid=auth_user.uuid, user_data=data)
+
+
+"""@pytest.fixture
+def store(app, auth_user):
+    name_store = Store.random()
+    res = app.store.add_store(
+        name_store=name_store, header=user_info.header, type_response=StoreResponse
+    )
+    data_store = UserStore(**user_info.to_dict())
+    data_store.store = name_store
+    data_store.store_uuid = res.data.uuid
+    return data_store"""
