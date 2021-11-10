@@ -1,18 +1,21 @@
 from fixtures.store.model import StoreResponse
 
 
-class TestUpdateUserInfo:
-    def test_add_store(self, app, user_info):
+class TestStore:
+    def test_get_store_info(self, app, store):
         """
         Steps.
-
-            1. Try to login user with valid data
-            2. Change user data
-            3. Check that status code is 200
-            4. Check response
+            1. Register new user
+            2. Access to store with valid data
+            3. Add user info
+            4. Add store
+            5. Try to get info about created store
+            6. Check that status code is 200
+            7. Check response
         """
-        name_store = 1
-        res = app.store.get_store_store(
-            name_store=name_store, header=user_info.header, type_response=StoreResponse
+        res = app.store.get_store(
+            name_store=store.store,
+            header=store.header,
+            type_response=StoreResponse,
         )
-        assert res.status_code == 201
+        assert res.status_code == 200, "Check status code"
