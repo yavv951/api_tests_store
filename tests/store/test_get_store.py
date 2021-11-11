@@ -20,4 +20,3 @@ class TestStore:
         )
         assert res.status_code == 200, "Check status code"
 
-#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
