@@ -14,7 +14,7 @@ class TestUpdateUserInfo:
         """
         data = UpdateUserInfo.random()
         res = app.userinfo.change_user_data(
-            user_id=user_info.uuid,
+            user_id=user_info.user_uuid,
             data=data,
             type_response=UpdateUserInfoResponse,
             header=user_info.header,
@@ -72,7 +72,7 @@ class TestUpdateUserInfo:
         data = UpdateUserInfo.random()
         setattr(data, "phone", phone)
         res = app.userinfo.change_user_data(
-            user_id=user_info.uuid,
+            user_id=user_info.user_uuid,
             data=data,
             type_response=None,
             header=user_info.header,
@@ -90,7 +90,7 @@ class TestUpdateUserInfo:
         """
         data = UpdateUserInfo.random()
         res = app.userinfo.change_user_data(
-            user_id=user_info.uuid,
+            user_id=user_info.user_uuid,
             data=data,
             type_response=None,
             header=None,
@@ -109,6 +109,6 @@ class TestUpdateUserInfo:
         data = UpdateUserInfo.random()
         header = {"Authorization": "JWT 895241"}
         res = app.userinfo.change_user_data(
-            user_id=user_info.uuid, data=data, type_response=None, header=header
+            user_id=user_info.user_uuid, data=data, type_response=None, header=header
         )
         assert res.status_code == 401

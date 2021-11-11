@@ -14,7 +14,7 @@ class TestUserInfo:
         """
         data = UserInfo.random()
         res = app.userinfo.add_user_info(
-            user_id=auth_user.uuid,
+            user_id=auth_user.user_uuid,
             data=data,
             type_response=UserInfoResponse,
             header=auth_user.header,

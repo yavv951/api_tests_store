@@ -21,13 +21,13 @@ class TestGetUserInfo:
         """
         data = UserInfo.random()
         app.userinfo.add_user_info(
-            user_id=auth_user.uuid,
+            user_id=auth_user.user_uuid,
             data=data,
             type_response=UserInfoResponse,
             header=auth_user.header,
         )
         res = app.userinfo.get_user_info(
-            user_id=auth_user.uuid,
+            user_id=auth_user.user_uuid,
             type_response=GetUserInfoResponse,
             header=auth_user.header,
         )
@@ -46,18 +46,18 @@ class TestGetUserInfo:
         """
         data = UserInfo.random()
         app.userinfo.add_user_info(
-            user_id=auth_user.uuid,
+            user_id=auth_user.user_uuid,
             data=data,
             type_response=UserInfoResponse,
             header=auth_user.header,
         )
         app.userinfo.delete_user_info(
-            user_id=auth_user.uuid,
+            user_id=auth_user.user_uuid,
             type_response=DeleteUserInfoResponse,
             header=auth_user.header,
         )
         res = app.userinfo.get_user_info(
-            user_id=auth_user.uuid,
+            user_id=auth_user.user_uuid,
             type_response=GetUserInfoResponse,
             header=auth_user.header,
         )
