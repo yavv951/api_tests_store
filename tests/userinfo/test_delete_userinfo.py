@@ -20,7 +20,7 @@ class TestDeleteUserInfo:
             header=auth_user.header,
         )
         res = app.userinfo.delete_user_info(
-            user_id=auth_user.uuid,
+            user_id=auth_user.user_uuid,
             type_response=DeleteUserInfoResponse,
             header=auth_user.header,
         )
