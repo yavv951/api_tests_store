@@ -1,4 +1,6 @@
 # import pytest
+from common_models import MessageResponse
+from fixtures.constants import ResponseText
 from fixtures.userinfo.model import (
     UserInfo,
     DeleteUserInfoResponse,
@@ -8,57 +10,40 @@ from fixtures.userinfo.model import (
 
 
 class TestGetUserInfo:
-    def test_get_userinfo(self, app, auth_user):
+    def test_get_userinfo(self, app, user_info):
         """
         Steps.
-
-            1. Try to login user with valid data
-            2. Add user info
-            3. Change user data
-            4. Get update user info
-            5. Check that status code is 200
-            6. Check response
+        1. Register new user
+        2. Access to store
+        3. Add user info
+        4. Try to get user info
+        5. Check that status code is 200
+        6. Check response
         """
-        data = UserInfo.random()
-        app.userinfo.add_user_info(
-            user_id=auth_user.user_uuid,
-            data=data,
-            type_response=UserInfoResponse,
-            header=auth_user.header,
-        )
         res = app.userinfo.get_user_info(
-            user_id=auth_user.user_uuid,
+            user_id=user_info.user_uuid,
+            header=user_info.header,
             type_response=GetUserInfoResponse,
-            header=auth_user.header,
         )
-        assert res.status_code == 200
+        assert res.status_code == 200, "Check status code"
+        assert res.data.city == user_info.user_info.address.city, "Check city"
+        assert res.data.street == user_info.user_info.address.street, "Check street"
+        assert res.data.email == user_info.user_info.email, "Check email"
 
-    def test_get_deleted_userinfo(self, app, auth_user):
+    def test_get_deleted_userinfo(self, app, user_info):
         """
         Steps.
-
-            1. Try to login user with valid data
-            2. Add user info
-            3. Delete user data
-            4. Get delete user info
-            5. Check that status code is 404(data is not found)
-            6. Check response
+        1. Register new user
+        2. Access to store
+        3. Add user info
+        4. Try to get info of non-existent user
+        5. Check that status code is 404
+        6. Check response
         """
-        data = UserInfo.random()
-        app.userinfo.add_user_info(
-            user_id=auth_user.user_uuid,
-            data=data,
-            type_response=UserInfoResponse,
-            header=auth_user.header,
-        )
-        app.userinfo.delete_user_info(
-            user_id=auth_user.user_uuid,
-            type_response=DeleteUserInfoResponse,
-            header=auth_user.header,
-        )
         res = app.userinfo.get_user_info(
-            user_id=auth_user.user_uuid,
-            type_response=GetUserInfoResponse,
-            header=auth_user.header,
+            user_id=1000,
+            header=user_info.header,
+            type_response=MessageResponse,
         )
-        assert res.status_code == 404
+        assert res.status_code == 404, "Check status code"
+        assert res.data.message == ResponseText.MESSAGE_INFO_NOT_FOUND

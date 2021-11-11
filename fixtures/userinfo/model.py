@@ -45,7 +45,7 @@ class UpdateUserInfoResponse:
 
 @attr.s
 class DeleteUserInfo(BaseClass):
-    uuid: int = attr.ib(validator=attr.validators.instance_of(str))
+    uuid: int = attr.ib(validator=attr.validators.instance_of(int))
 
 
 @attr.s
@@ -62,7 +62,6 @@ class GetUserInfo(BaseClass):
 class GetUserInfoResponse:
     phone: str = attr.ib(default=None, validator=attr.validators.instance_of(str))
     email: str = attr.ib(default=None, validator=attr.validators.instance_of(str))
-    city: str = attr.ib(default=None, validator=attr.validators.instance_of(str))
+    userID: int = attr.ib(default=None, validator=attr.validators.instance_of(int))
     street: str = attr.ib(default=None, validator=attr.validators.instance_of(str))
-    home_number: str = attr.ib(default=None, validator=attr.validators.instance_of(str))
-    address: Address = attr.ib(default=None)
+    city: str = attr.ib(default=None, validator=attr.validators.instance_of(str))

@@ -2,7 +2,7 @@ import logging
 import pytest
 from common_models import UserStore
 from fixtures.app import StoreApp
-from fixtures.auth.model import AuthUserResponse, UserType
+from fixtures.auth.model import AuthUserResponse
 from fixtures.register.model import RegisterUser, RegisterUserResponse
 from fixtures.store.model import Store, StoreResponse
 from fixtures.userinfo.model import UserInfo, UserInfoResponse
